@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+@if (Auth::check())
 <h1>タスク一覧</h1>
 
  @if (count($tasks) > 0)
@@ -21,13 +23,15 @@
                         <td>{{ $task->content }}</td>
                     </tr>
             @endforeach
-            
         </tbody>
-        
     @endif
-    
-     {!! link_to_route('tasks.create', '新規タスクの投稿', null, ['class' => 'btn btn-primary']) !!}
 
+     {!! link_to_route('tasks.create', '新規タスクの投稿', null, ['class' => 'btn btn-primary']) !!}
+@else
+<h1>タスクリスト</h1>
+    {!! link_to_route('signup.get', 'Signup', null, ['class' => 'btn btn-lg btn-primary']) !!}
+    {!! link_to_route('login', 'Login', null, ['class' => 'btn btn-lg btn-primary']) !!}
+@endif    
     
 
 @endsection
