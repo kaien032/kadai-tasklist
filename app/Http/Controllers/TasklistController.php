@@ -17,11 +17,18 @@ class TasklistController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
-        
-        return view("tasks.index",[
-            "tasks" => $tasks,
-        ]);
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $tasks = $user->tasks()->get();
+             
+            return view("tasks.index",[
+                 "tasks" => $tasks,
+            ]);
+        }
+        else{
+            return view("tasks.index");
+        }
+      
     }
 
     /**
@@ -54,6 +61,7 @@ class TasklistController extends Controller
         $task = new Task;
         $task->status = $request->status;
         $task->content = $request->content;
+        $task->user_id = \Auth::user()->id; 
         $task->save();
         
         return redirect("/");
@@ -67,11 +75,22 @@ class TasklistController extends Controller
      */
     public function show($id)
     {
+        if(\Auth::user()->id == $user_id){
         $task = Task::find($id);
 
         return view('tasks.show', [
             'task' => $task,
         ]);
+        }
+        else{
+            $user = \Auth::user();
+            $tasks = $user->tasks()->get();
+             
+            return view("tasks.index",[
+                 "tasks" => $tasks,
+                ]);
+        }
+        
     }
 
     /**

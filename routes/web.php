@@ -14,7 +14,7 @@
 Route::get('/', "TasklistController@index");
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('tasks', 'TasklistController', ['only' => ['create', 'edit', 'index', 'show', 'destroy']]);
+    Route::resource('tasks', 'TasklistController', ['only' => ['create', 'store', 'update', 'edit', 'index', 'show', 'destroy']]);
 });
 
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
