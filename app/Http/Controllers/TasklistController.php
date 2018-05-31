@@ -103,10 +103,20 @@ class TasklistController extends Controller
     public function edit($id)
     {
         $task = Task::find($id);
-        
-        return view("tasks.edit", [
-            "task" => $task
-            ]);
+        if(\Auth::user()->id == $task->user_id){
+
+        return view('tasks.edit', [
+            'task' => $task,
+        ]);
+        }
+        else{
+            $user = \Auth::user();
+            $tasks = $user->tasks()->get();
+             
+            return view("tasks.index",[
+                 "tasks" => $tasks,
+                ]);
+        }
     }
 
     /**
