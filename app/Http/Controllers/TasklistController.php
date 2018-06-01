@@ -86,10 +86,8 @@ class TasklistController extends Controller
         else{
             $user = \Auth::user();
             $tasks = $user->tasks()->get();
-             
-            return view("tasks.index",[
-                 "tasks" => $tasks,
-                ]);
+            
+            return redirect("/");
         }
         
     }
@@ -112,10 +110,9 @@ class TasklistController extends Controller
         else{
             $user = \Auth::user();
             $tasks = $user->tasks()->get();
-             
-            return view("tasks.index",[
-                 "tasks" => $tasks,
-                ]);
+            
+            return redirect("/");
+
         }
     }
 
